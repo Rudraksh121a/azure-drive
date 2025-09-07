@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Folder: {{ folder_name }}{% endblock %}
+
+{% block content %}
+<div class="flex h-screen bg-gray-100">
+    <!-- Main content -->
+    <main class="flex-1 p-6 overflow-auto">
+
+        <!-- Folder Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">Folder: {{ folder_name }}</h1>
+            <a href="{{ url_for('upload_file', folder_name=folder_name) }}" 
+               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+               Upload File
+            </a>
+        </div>
+
+        <!-- Success Message -->
+        {% if success %}
+            <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
+                {{ success }}
+            </div>
+        {% endif %}
+
+        <!-- Files Grid -->
+        <h2 class="text-xl font-semibold mb-3">Files in this folder</h2>
+        <div class="grid grid-cols-4 gap-4">
+            {% if files %}
+                {% for file in files %}
+                <div class="bg-white rounded shadow p-4 flex flex-col items-center justify-center hover:shadow-lg transition">
+                    <img src="https://img.icons8.com/fluency/48/000000/file.png" alt="file icon">
+                    <a href="{{ file.url }}" target="_blank" class="mt-2 font-medium text-blue-600 hover:underline">
+                        {{ file.name }}
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-gray-600 col-span-4">No files uploaded yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Back to Home -->
+        <div class="mt-6">
+            <a href="{{ url_for('home') }}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                Back to Drive
+            </a>
+        </div>
+
+    </main>
+</div>
+{% endblock %}

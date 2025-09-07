@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="flex h-screen bg-gray-100">
+
+    <main class="flex-1 p-6 overflow-auto">
+        {% if user %}
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">Welcome, {{ user.get('name', 'User') }}</h1>
+            <div class="flex gap-2">
+                <a href="/create-folder" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Create Folder</a>
+            </div>
+        </div>
+
+        <!-- Folders -->
+        <h2 class="text-xl font-semibold mb-3">Your Folders</h2>
+        <div class="grid grid-cols-4 gap-4 mb-6">
+            {% for folder in folders %}
+            <a href="/folder/{{ folder }}" class="block bg-white rounded shadow p-4 flex flex-col items-center justify-center hover:shadow-lg transition">
+                <img src="https://img.icons8.com/fluency/48/000000/folder-invoices.png" alt="folder icon">
+                <p class="mt-2 font-medium">{{ folder.rstrip('/') }}</p>
+            </a>
+            {% endfor %}
+
+            {% if folders|length == 0 %}
+            <p class="text-gray-600 col-span-4">No folders created yet. Use "Create Folder" to add one.</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="flex flex-col items-center justify-center h-full">
+            <h1 class="text-3xl font-bold mb-4">Login now to access your Drive</h1>
+            <a href="/login" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Login</a>
+        </div>
+        {% endif %}
+    </main>
+
+</div>
+{% endblock %}
