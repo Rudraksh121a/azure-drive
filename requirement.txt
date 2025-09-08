@@ -2,3 +2,8 @@ Flask
 msal
 azure-storage-blob
 python-dotenv
+
+azure-mgmt-resource
+azure-mgmt-storage
+azure-identity
+
